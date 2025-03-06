@@ -418,6 +418,60 @@
           productTag.innerHTML = "NEW VARIANT";
         </script>
 
+                <article class="product__card">
+          <div class="product__circle"></div>
+          <div class="product__img-container">
+            <img src="assets/img/Baru5.png" alt="" class="product__img" />
+            <div class="product__tag">NEW VARIANT</div>
+          </div>
+          <h3 class="product__title">Kacang Bawang </h3>
+          <p1>Netto: 500gr</p1>
+          <span class="product__price">Rp 45.000,00</span>
+          <p2>Netto: 1000gr</p2>
+          <span class="product__price">Rp 80.000,00</span>
+
+          <button class="button--flex product__button">
+            <i class="ri-shopping-bag-line"></i>
+          </button>
+        </article>
+        <style>
+          .product__img-container {
+            position: relative;
+            display: inline-block;
+          }
+
+          .product__tag {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background-color: red;
+            color: white;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 10px;
+            animation: shake 0.5s ease-in-out infinite;
+          }
+
+          @keyframes shake {
+            0% {
+              transform: translateX(0);
+            }
+
+            50% {
+              transform: translateX(5px);
+            }
+
+            100% {
+              transform: translateX(0);
+            }
+          }
+        </style>
+        <script>
+          // Jika ingin mengubah teks "NEW VARIANT", dapat dilakukan dengan mengubah teks pada elemen HTML berikut ini:
+          var productTag = document.querySelector(".product__tag");
+          productTag.innerHTML = "NEW VARIANT";
+        </script>
+
         <article class="product__card">
           <div class="product__circle"></div>
 
