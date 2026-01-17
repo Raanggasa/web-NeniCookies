@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Neni Cookies - Since 2018</title>
+    <title>Neni Cookies</title>
     
     <link rel="manifest" href="manifest.json">
     
@@ -15,7 +15,7 @@
     <meta name="apple-mobile-web-app-title" content="Neni Cookies">
     <link rel="apple-touch-icon" href="assets/img/icon-192.png">
 
-    <link rel="shortcut icon" href="assets/img/Logo no bg.png" type="image/x-icon">
+    <link rel="shortcut icon" href="assets/img/Logo.png" type="image/x-icon">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
@@ -165,7 +165,7 @@
                 <img src="assets/img/Logo no bg.png" alt="Logo" class="brand-logo-img" onerror="this.style.display='none'"> 
                 <div class="brand-text-group">
                     <span class="brand-text">Neni Cookies</span>
-                    <span class="brand-sub">Since 2018</span>
+                    <span class="brand-sub">Since 2010</span>
                 </div>
             </a>
         </div>
@@ -179,7 +179,7 @@
                     <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000" data-bs-pause="false">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                                <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=600&q=80" class="hero-img" alt="Slide 1">
+                                <img src="assets/img/hero 1.jpeg" class="hero-img" alt="Slide 1">
                                 <div class="hero-overlay-inner">
                                     <div class="hero-text" data-aos="fade-right">
                                         <h2 class="fw-bold mb-1">Premium Taste</h2>
@@ -189,7 +189,7 @@
                                 </div>
                             </div>
                             <div class="carousel-item">
-                                <img src="https://images.unsplash.com/photo-1556910103-1c02745a30bf?w=600&q=80" class="hero-img" alt="Slide 2">
+                                <img src="assets/img/hero 2.jpeg" class="hero-img" alt="Slide 2">
                                 <div class="hero-overlay-inner">
                                     <div class="hero-text">
                                         <h2 class="fw-bold mb-1">Halal & Higienis</h2>
@@ -199,7 +199,7 @@
                                 </div>
                             </div>
                             <div class="carousel-item">
-                                <img src="https://images.unsplash.com/photo-1499636138143-bd649043ea80?w=600&q=80" class="hero-img" alt="Slide 3">
+                                <img src="assets/img/hero 3.jpeg" class="hero-img" alt="Slide 3">
                                 <div class="hero-overlay-inner">
                                     <div class="hero-text">
                                         <h2 class="fw-bold mb-1">Hantaran Terbaik</h2>
@@ -299,7 +299,7 @@
             <div class="container">
                 <h3 class="section-title mb-3">Lokasi & Kontak</h3>
                 <div class="map-container shadow-sm">
-                    <iframe src="https://googleusercontent.com/maps.google.com/0" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.813072800342!2d109.3535076!3d-0.09292639999999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e1d5b09169c6e2b%3A0xf100ddb4735d6a2f!2sNeni%20Cookies!5e0!3m2!1sen!2sid!4v1768633887318!5m2!1sen!2sid" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
                 <div class="contact-row shadow-sm">
                     <div class="contact-icon"><i class="bi bi-geo-alt-fill"></i></div>
@@ -309,7 +309,7 @@
                     <div class="contact-icon"><i class="bi bi-envelope-fill"></i></div>
                     <div><h6 class="fw-bold mb-1">Email</h6><p class="small text-muted m-0">nenicookiesptk@email.com</p></div>
                 </div>
-                <div class="mt-4"><a href="https://wa.me/+6282148367917" class="btn btn-success w-100 py-3 rounded-4 shadow fw-bold d-flex justify-content-center align-items-center gap-2"><i class="bi bi-whatsapp fs-5"></i> Hubungi +62 821-4836-7917</a></div>
+                <div class="mt-4"><a href="https://wa.me/+6282148367917" class="btn btn-success w-100 py-3 rounded-4 shadow fw-bold d-flex justify-content-center align-items-center gap-2"><i class="bi bi-whatsapp fs-5"></i> Hubungi Kami</a></div>
             </div>
         </section>
     </main>
@@ -336,33 +336,39 @@
             });
         }
 
-        const products = [
+const products = [
             // VARIANT BARU & LAMA
-            { id: 101, name: "Cookies Matcha", cat: "cookies", price: "85.000", price1000ml: "125.000", price1kg: "160.000", img: "assets/img/Baru4.png", desc: "Perpaduan matcha premium dengan tekstur renyah yang unik." },
-            { id: 102, name: "Tart Nanas Bunga", cat: "cookies", price: "100.000", price1000ml: "150.000", price1kg: "200.000", img: "assets/img/Baru1.png", desc: "Bentuk bunga cantik dengan isian selai nanas melimpah." },
-            { id: 103, name: "Peanut Butter", cat: "cookies", price: "90.000", price1000ml: "135.000", price1kg: "170.000", img: "assets/img/Baru2.png", desc: "Gurihnya selai kacang asli dalam setiap gigitan." },
-            { id: 104, name: "Chococip Cookies", cat: "cookies", price: "85.000", price1000ml: "125.000", price1kg: "160.000", img: "assets/img/Baru3.png", desc: "Cookies klasik dengan butiran chococip yang manis." },
+            { id: 101, name: "Cookies Matcha", cat: "cookies", price: "85.000", price1000ml: "90.000", price1kg: "160.000", img: "assets/img/Baru4.png", desc: "Perpaduan matcha premium dengan tekstur renyah yang unik." },
+            { id: 102, name: "Tart Nanas Bunga", cat: "cookies", price: "100.000", price1000ml: "100.000", price1kg: "200.000", img: "assets/img/Baru1.png", desc: "Bentuk bunga cantik dengan isian selai nanas melimpah." },
+            { id: 103, name: "Peanut Butter", cat: "cookies", price: "90.000", price1000ml: "100.000", price1kg: "170.000", img: "assets/img/Baru2.png", desc: "Gurihnya selai kacang asli dalam setiap gigitan." },
+            { id: 104, name: "Chococip Cookies", cat: "cookies", price: "85.000", price1000ml: "95.000", price1kg: "160.000", img: "assets/img/Baru3.png", desc: "Cookies klasik dengan butiran chococip yang manis." },
             { id: 105, name: "Kacang Bawang", cat: "snack", price: "45.000", price1kg: "80.000", img: "assets/img/Baru5.png", desc: "Camilan gurih teman santai keluarga." },
             
+            // PRODUK BARU DITAMBAHKAN
+            { id: 106, name: "Sagu Keju", cat: "cookies", price: "85.000", price1000ml: "70.000", price1kg: "160.000", img: "assets/img/picture60.png", desc: "Tekstur lumer di mulut dengan rasa keju yang gurih." },
+
             // COOKIES CLASSIC
-            { id: 1, name: "Choco Nut", cat: "cookies", price: "85.000", price1000ml: "125.000", price1kg: "160.000", img: "assets/img/Picture35.png", desc: "Rasa coklat kacang yang khas dan nikmat." },
-            { id: 2, name: "Pitmopen", cat: "cookies", price: "80.000", price1000ml: "120.000", price1kg: "150.000", img: "assets/img/Picture34.png", desc: "Kue klasik dengan aroma yang menggugah selera." },
-            { id: 3, name: "Choco Crunch", cat: "cookies", price: "75.000", price1000ml: "110.000", price1kg: "140.000", img: "assets/img/Picture1.png", desc: "Coklat crunchy yang lumer di mulut." },
-            { id: 4, name: "Palm Sugar", cat: "cookies", price: "75.000", price1000ml: "110.000", price1kg: "140.000", img: "assets/img/Picture2.png", desc: "Manis alami dari gula aren asli." },
-            { id: 5, name: "Janit Cookies", cat: "cookies", price: "75.000", price1000ml: "110.000", price1kg: "140.000", img: "assets/img/Picture3.png", desc: "Kue kering dengan taburan gula yang pas." },
-            { id: 6, name: "Kastard", cat: "cookies", price: "80.000", price1000ml: "120.000", price1kg: "150.000", img: "assets/img/Picture4.png", desc: "Lembut dan manis, favorit semua umur." },
-            { id: 7, name: "Choco Chip", cat: "cookies", price: "75.000", price1000ml: "110.000", price1kg: "140.000", img: "assets/img/Picture5.png", desc: "Taburan choco chip yang melimpah." },
-            { id: 8, name: "Kue Kacang/Skipi", cat: "cookies", price: "75.000", price1000ml: "110.000", price1kg: "140.000", img: "assets/img/Picture6.png", desc: "Tekstur halus dengan rasa kacang yang kuat." },
-            { id: 9, name: "Putri Salju", cat: "cookies", price: "75.000", price1000ml: "110.000", price1kg: "140.000", img: "assets/img/Picture7.png", desc: "Dibalut gula halus dingin yang menyegarkan." },
-            { id: 10, name: "Snow Ball Cheese", cat: "cookies", price: "80.000", price1000ml: "120.000", price1kg: "150.000", img: "assets/img/Picture8.png", desc: "Bola keju salju yang gurih." },
-            { id: 11, name: "Regal Bawang", cat: "cookies", price: "80.000", price1000ml: "120.000", price1kg: "150.000", img: "assets/img/Picture9.png", desc: "Kombinasi unik regal dan bawang." },
-            { id: 12, name: "Kastengel", cat: "cookies", price: "75.000", price1000ml: "110.000", price1kg: "140.000", img: "assets/img/Picture10.png", desc: "Keju edam asli yang sangat terasa." },
-            { id: 13, name: "Nastar", cat: "cookies", price: "100.000", price1000ml: "150.000", price1kg: "200.000", img: "assets/img/Picture11.png", desc: "Selai nanas homemade yang legit." },
-            { id: 14, name: "Mente Cookies", cat: "cookies", price: "100.000", price1000ml: "150.000", price1kg: "200.000", img: "assets/img/Picture12.png", desc: "Kacang mede pilihan di setiap gigitan." },
-            { id: 15, name: "Cornflakes", cat: "cookies", price: "80.000", price1000ml: "120.000", price1kg: "150.000", img: "assets/img/Picture13.png", desc: "Renyahnya cornflakes dalam kue kering." },
-            { id: 16, name: "Semprit", cat: "cookies", price: "60.000", price1000ml: "90.000", price1kg: "110.000", img: "assets/img/Picture14.png", desc: "Kue tradisional yang tak lekang waktu." },
-            { id: 17, name: "Kanji Pandan", cat: "cookies", price: "75.000", price1000ml: "110.000", price1kg: "140.000", img: "assets/img/Picture15.png", desc: "Harum pandan asli yang menenangkan." },
-            { id: 18, name: "Kanji Susu", cat: "cookies", price: "75.000", price1000ml: "110.000", price1kg: "140.000", img: "assets/img/Picture16.png", desc: "Rasa susu yang creamy dan lembut." },
+            { id: 1, name: "Choco Nut", cat: "cookies", price: "85.000", price1000ml: "95.000", price1kg: "160.000", img: "assets/img/Picture35.png", desc: "Rasa coklat kacang yang khas dan nikmat." },
+            { id: 2, name: "Pitmopen", cat: "cookies", price: "80.000", price1000ml: "90.000", price1kg: "150.000", img: "assets/img/Picture34.png", desc: "Kue klasik dengan aroma yang menggugah selera." },
+            { id: 3, name: "Choco Crunch", cat: "cookies", price: "75.000", price1000ml: "75.000", price1kg: "140.000", img: "assets/img/Picture1.png", desc: "Coklat crunchy yang lumer di mulut." },
+            { id: 4, name: "Palm Sugar", cat: "cookies", price: "75.000", price1000ml: "80.000", price1kg: "140.000", img: "assets/img/Picture2.png", desc: "Manis alami dari gula aren asli." },
+            { id: 5, name: "Janit Cookies", cat: "cookies", price: "75.000", price1000ml: "80.000", price1kg: "140.000", img: "assets/img/Picture3.png", desc: "Kue kering dengan taburan gula yang pas." },
+            { id: 6, name: "Kastard", cat: "cookies", price: "80.000", price1000ml: "95.000", price1kg: "150.000", img: "assets/img/Picture4.png", desc: "Lembut dan manis, favorit semua umur." },
+            
+            // PERUBAHAN NAMA (Semprit Choco Chip)
+            { id: 7, name: "Semprit Choco Chip", cat: "cookies", price: "75.000", price1000ml: "110.000", price1kg: "140.000", img: "assets/img/Picture5.png", desc: "Taburan choco chip yang melimpah." },
+            
+            { id: 8, name: "Kue Kacang/Skipi", cat: "cookies", price: "75.000", price1000ml: "80.000", price1kg: "140.000", img: "assets/img/Picture6.png", desc: "Tekstur halus dengan rasa kacang yang kuat." },
+            { id: 9, name: "Putri Salju", cat: "cookies", price: "75.000", price1000ml: "90.000", price1kg: "140.000", img: "assets/img/Picture7.png", desc: "Dibalut gula halus dingin yang menyegarkan." },
+            { id: 10, name: "Snow Ball Cheese", cat: "cookies", price: "80.000", price1000ml: "90.000", price1kg: "150.000", img: "assets/img/Picture8.png", desc: "Bola keju salju yang gurih." },
+            { id: 11, name: "Regal Bawang", cat: "cookies", price: "80.000", price1000ml: "90.000", price1kg: "150.000", img: "assets/img/Picture9.png", desc: "Kombinasi unik regal dan bawang." },
+            { id: 12, name: "Kastengel", cat: "cookies", price: "75.000", price1000ml: "80.000", price1kg: "140.000", img: "assets/img/Picture10.png", desc: "Keju edam asli yang sangat terasa." },
+            { id: 13, name: "Nastar", cat: "cookies", price: "100.000", price1000ml: "110.000", price1kg: "200.000", img: "assets/img/Picture11.png", desc: "Selai nanas homemade yang legit." },
+            { id: 14, name: "Mente Cookies", cat: "cookies", price: "100.000", price1000ml: "110.000", price1kg: "200.000", img: "assets/img/Picture12.png", desc: "Kacang mede pilihan di setiap gigitan." },
+            { id: 15, name: "Cornflakes", cat: "cookies", price: "80.000", price1000ml: "90.000", price1kg: "150.000", img: "assets/img/Picture13.png", desc: "Renyahnya cornflakes dalam kue kering." },
+            { id: 16, name: "Semprit", cat: "cookies", price: "60.000", price1000ml: "65.000", price1kg: "110.000", img: "assets/img/Picture14.png", desc: "Kue tradisional yang tak lekang waktu." },
+            { id: 17, name: "Kanji Pandan", cat: "cookies", price: "75.000", price1000ml: "65.000", price1kg: "140.000", img: "assets/img/Picture15.png", desc: "Harum pandan asli yang menenangkan." },
+            { id: 18, name: "Kanji Susu", cat: "cookies", price: "75.000", price1000ml: "65.000", price1kg: "140.000", img: "assets/img/Picture16.png", desc: "Rasa susu yang creamy dan lembut." },
             
             // SNACK
             { id: 19, name: "Stik Ketan", cat: "snack", price: "50.000", price1kg: "100.000", img: "assets/img/Picture17.png", desc: "Renyah dan gurih, cocok untuk camilan." },
@@ -462,10 +468,20 @@
 
             renderCatalog: function(data) {
                 const container = document.getElementById('catalog-container');
+                
+                // --- PERBAIKAN: Menambahkan grid-column: 1 / -1 agar memenuhi lebar grid ---
                 if(data.length === 0) {
-                    container.innerHTML = `<div class="col-12 text-center py-5 text-muted">Produk tidak ditemukan</div>`;
+                    container.innerHTML = `
+                        <div class="d-flex flex-column justify-content-center align-items-center text-muted w-100" style="grid-column: 1 / -1; min-height: 50vh; text-align: center;">
+                            <i class="bi bi-search mb-3" style="font-size: 3rem; opacity: 0.3;"></i>
+                            <h6 class="fw-bold mb-1">Produk tidak ditemukan</h6>
+                            <p class="small opacity-75 m-0">Coba gunakan kata kunci pencarian lain.</p>
+                        </div>
+                    `;
                     return;
                 }
+                // ---------------------------------------------------------------------------
+
                 let html = '';
                 data.forEach(p => {
                     let priceDisplay = '';
