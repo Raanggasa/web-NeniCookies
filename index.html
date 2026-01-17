@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Neni Cookies - Since 2018</title>
+    
+    <link rel="manifest" href="manifest.json">
+    
+    <meta name="theme-color" content="#2e7d5a">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Neni Cookies">
+    <link rel="apple-touch-icon" href="assets/img/icon-192.png">
+
+    <link rel="shortcut icon" href="assets/img/Logo no bg.png" type="image/x-icon">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #2e7d5a;
+            --primary-dark: #246346;
+            --bg-body: #f5f7f9;
+            --text-main: #333;
+            --nav-height: 75px;
+            --card-radius: 16px;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            /* Tambahan padding safe-area untuk iPhone berponi */
+            padding-bottom: calc(var(--nav-height) + 20px + env(safe-area-inset-bottom));
+            margin: 0;
+            overflow-x: hidden;
+            /* Mencegah pull-to-refresh default browser agar lebih terasa native app */
+            overscroll-behavior-y: none; 
+        }
+
+        /* --- HEADER COMPACT --- */
+        .app-header {
+            background: #fff;
+            padding: 8px 0; 
+            box-shadow: 0 1px 10px rgba(0,0,0,0.03);
+            margin-bottom: 10px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            /* Padding atas untuk status bar HP */
+            padding-top: max(8px, env(safe-area-inset-top));
+        }
+        .brand-wrapper {
+            display: flex; align-items: center; gap: 12px; text-decoration: none;
+        }
+        .brand-logo-img { height: 42px; width: auto; object-fit: contain; }
+        .brand-text-group { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; line-height: 1; }
+        .brand-text { font-family: 'Pacifico', cursive; font-size: 1.35rem; color: var(--primary); margin-bottom: 0px; }
+        .brand-sub { font-family: 'Poppins', sans-serif; font-size: 0.7rem; color: #000; letter-spacing: 1px; font-weight: 500; margin-top: 2px; text-transform: uppercase; }
+
+        /* --- HERO CAROUSEL --- */
+        .hero-wrapper { padding: 0 15px; margin-bottom: 25px; }
+        .hero-card { border-radius: var(--card-radius); overflow: hidden; position: relative; height: 190px; box-shadow: 0 8px 20px rgba(46, 125, 90, 0.2); background: #000; }
+        .carousel, .carousel-inner, .carousel-item { height: 100%; width: 100%; }
+        .hero-img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+        .hero-overlay-inner { position: absolute; top: 0; left: 0; bottom: 0; right: 0; background: linear-gradient(90deg, rgba(46, 125, 90, 0.95) 0%, rgba(46, 125, 90, 0.6) 50%, rgba(255, 255, 255, 0) 100%); display: flex; align-items: center; padding-left: 20px; }
+        .hero-text { color: #fff; max-width: 70%; text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+
+        /* --- PROMO MODAL --- */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); z-index: 9999; display: none; justify-content: center; align-items: center; padding: 20px; animation: fadeInModal 0.4s ease; }
+        .modal-content-custom { position: relative; max-width: 400px; width: 100%; text-align: center; }
+        .modal-img { width: 100%; height: auto; display: block; filter: drop-shadow(0 0 15px rgba(255,255,255,0.2)); }
+        .btn-close-modal { position: absolute; top: -15px; right: -10px; background: #fff; color: #333; border: none; width: 35px; height: 35px; border-radius: 50%; font-weight: bold; font-size: 1.2rem; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; }
+        @keyframes fadeInModal { from {opacity: 0;} to {opacity: 1;} }
+
+        /* --- GENERAL --- */
+        .section-header { display: flex; justify-content: space-between; align-items: flex-end; padding: 0 15px; margin-bottom: 15px; }
+        .section-title { font-size: 1.1rem; font-weight: 700; color: #222; margin: 0; border-left: 4px solid var(--primary); padding-left: 10px; line-height: 1.2; }
+        .see-more { font-size: 0.8rem; color: var(--primary); text-decoration: none; font-weight: 500; }
+
+        /* --- PRODUCT GRID & CARDS --- */
+        .product-grid { padding: 0 15px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+        .prod-card { background: #fff; border-radius: var(--card-radius); overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.03); display: flex; flex-direction: column; position: relative;}
+        .prod-img-box { position: relative; padding-top: 100%; background: #f8f8f8; }
+        .prod-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+        
+        .prod-info { padding: 10px; display: flex; flex-direction: column; flex-grow: 1; }
+        .prod-cat { font-size: 0.65rem; color: #999; text-transform: uppercase; letter-spacing: 0.5px; }
+        .prod-title { font-size: 0.85rem; font-weight: 600; margin: 3px 0 8px; line-height: 1.3; color: #333; height: 35px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical;}
+        
+        /* Pricing Styling */
+        .price-container { margin-bottom: 10px; background: #f9f9f9; padding: 6px; border-radius: 8px; border: 1px solid #eee; }
+        .price-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; margin-bottom: 3px; }
+        .price-row:last-child { margin-bottom: 0; }
+        .price-label { color: #777; font-size: 0.7rem; }
+        .price-val { color: var(--text-main); font-weight: 600; }
+        
+        .price-single { font-size: 0.95rem; font-weight: 700; color: var(--primary); display: block; margin-bottom: 2px;}
+
+        .btn-buy { margin-top: auto; background: var(--primary); color: #fff !important; text-decoration: none !important; text-align: center; padding: 6px; border-radius: 8px; font-size: 0.8rem; font-weight: 500; display: block; width: 100%;}
+        
+        /* --- CATALOG CONTROLS --- */
+        .catalog-controls { padding: 0 15px; margin-bottom: 20px; }
+        .search-wrapper { position: relative; margin-bottom: 15px; }
+        .search-input { width: 100%; padding: 12px 15px 12px 45px; border-radius: 12px; border: 1px solid #e0e0e0; background: #fff; font-size: 0.9rem; outline: none; }
+        .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #999; }
+        .filter-scroll { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 5px; }
+        .filter-scroll::-webkit-scrollbar { display: none; }
+        .filter-chip { white-space: nowrap; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; background: #fff; border: 1px solid #ddd; color: #666; transition: 0.3s; }
+        .filter-chip.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+        /* --- BEST SELLER --- */
+        .bestseller-item { background: #fff; margin: 0 15px 12px; padding: 12px; border-radius: 12px; display: flex; align-items: center; gap: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.02); border: 1px solid #f0f0f0; }
+        .bs-img { width: 70px; height: 70px; border-radius: 10px; object-fit: cover; background: #eee; flex-shrink: 0; }
+        .bs-stars { color: #ffc107; font-size: 0.75rem; margin-bottom: 4px; }
+        .bs-desc { font-size: 0.75rem; color: #777; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        
+        /* --- ABOUT & FAQ --- */
+        .about-img { width: 100%; height: 200px; object-fit: cover; border-radius: var(--card-radius); margin-bottom: 20px; }
+        .info-card { background: #fff; border-radius: 12px; padding: 20px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
+        .history-text { font-size: 0.85rem; color: #555; line-height: 1.6; text-align: justify; }
+        .advantage-list { list-style: none; padding: 0; margin: 0; font-size: 0.85rem; }
+        .advantage-list li { display: flex; gap: 10px; margin-bottom: 8px; color: #444; }
+        
+        .accordion-item { border: none; margin-bottom: 10px; border-radius: 12px !important; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+        .accordion-button { padding: 12px 15px; font-size: 0.9rem; font-weight: 600; }
+        .accordion-button:not(.collapsed) { color: var(--primary); background-color: #f0fdf4; }
+        .accordion-body { font-size: 0.85rem; color: #555; padding: 15px; line-height: 1.5; }
+
+        /* --- CONTACT --- */
+        .map-container { width: 100%; height: 200px; border-radius: var(--card-radius); overflow: hidden; background: #eee; margin-bottom: 20px; }
+        .contact-row { display: flex; align-items: center; background: #fff; padding: 15px; border-radius: 12px; margin-bottom: 10px; gap: 15px; }
+        .contact-icon { width: 40px; height: 40px; min-width: 40px; flex-shrink: 0; background: #e8f5e9; color: var(--primary); display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 1.2rem; }
+
+        /* --- NAV BAR --- */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; height: var(--nav-height); display: flex; justify-content: space-around; align-items: center; box-shadow: 0 -5px 20px rgba(0,0,0,0.05); z-index: 1000; border-top-left-radius: 20px; border-top-right-radius: 20px; padding-bottom: env(safe-area-inset-bottom); }
+        .nav-btn { background: none; border: none; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #aaa; font-size: 0.7rem; width: 25%; }
+        .nav-btn i { font-size: 1.4rem; margin-bottom: 4px; transition: 0.3s; }
+        .nav-btn.active { color: var(--primary); font-weight: 600; }
+        .nav-btn.active i { transform: translateY(-3px); }
+
+        .page-content { display: none; padding-bottom: 20px; animation: fadeIn 0.3s; }
+        .page-content.active { display: block; }
+        @keyframes fadeIn { from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
+    </style>
+</head>
+<body>
+
+    <div id="promoModal" class="modal-overlay">
+        <div class="modal-content-custom" onclick="event.stopPropagation()">
+            <button class="btn-close-modal" onclick="app.closeModal()">✕</button>
+            <img src="assets/img/popup.png" alt="Promo Spesial" class="modal-img" style="border-radius: 16px; max-width: 85%; margin: 0 auto;" onerror="this.src='https://via.placeholder.com/350x350/transparent/ffffff?text=Promo+Image+PNG'">
+        </div>
+    </div>
+
+    <header class="app-header">
+        <div class="container d-flex justify-content-center">
+            <a href="#" class="brand-wrapper" onclick="app.nav('home')">
+                <img src="assets/img/Logo no bg.png" alt="Logo" class="brand-logo-img" onerror="this.style.display='none'"> 
+                <div class="brand-text-group">
+                    <span class="brand-text">Neni Cookies</span>
+                    <span class="brand-sub">Since 2018</span>
+                </div>
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <section id="p-home" class="page-content active">
+            
+            <div class="hero-wrapper">
+                <div class="hero-card">
+                    <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000" data-bs-pause="false">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=600&q=80" class="hero-img" alt="Slide 1">
+                                <div class="hero-overlay-inner">
+                                    <div class="hero-text" data-aos="fade-right">
+                                        <h2 class="fw-bold mb-1">Premium Taste</h2>
+                                        <p class="small mb-2 opacity-75">Kualitas rumahan rasa premium</p>
+                                        <button class="btn btn-light btn-sm rounded-pill px-3 fw-bold" onclick="app.nav('catalog')">Pesan Sekarang</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="https://images.unsplash.com/photo-1556910103-1c02745a30bf?w=600&q=80" class="hero-img" alt="Slide 2">
+                                <div class="hero-overlay-inner">
+                                    <div class="hero-text">
+                                        <h2 class="fw-bold mb-1">Halal & Higienis</h2>
+                                        <p class="small mb-2 opacity-75">Diawasi langsung pemerintah</p>
+                                        <button class="btn btn-light btn-sm rounded-pill px-3 fw-bold" onclick="app.nav('about')">Info Detail</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="https://images.unsplash.com/photo-1499636138143-bd649043ea80?w=600&q=80" class="hero-img" alt="Slide 3">
+                                <div class="hero-overlay-inner">
+                                    <div class="hero-text">
+                                        <h2 class="fw-bold mb-1">Hantaran Terbaik</h2>
+                                        <p class="small mb-2 opacity-75">Kirim kebahagiaan untuk kerabat</p>
+                                        <button class="btn btn-light btn-sm rounded-pill px-3 fw-bold" onclick="app.nav('contact')">Hubungi Kami</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-header">
+                <h3 class="section-title">Produk Pilihan</h3>
+                <a href="#" class="see-more" onclick="app.filter('all'); app.nav('catalog')">Lihat Semua</a>
+            </div>
+            
+            <div id="home-bestseller-container"></div>
+            
+            <div class="container mt-4">
+                <div class="alert alert-success d-flex align-items-center small shadow-sm border-0" role="alert">
+                    <i class="bi bi-shield-check-fill me-2 fs-5"></i>
+                    <div>
+                        <strong>Terjamin Halal & Higienis</strong> <br>
+                        Sertifikasi MUI: LPPOM-21100013031222
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="p-catalog" class="page-content">
+            <div class="catalog-controls">
+                <div class="search-wrapper">
+                    <i class="bi bi-search search-icon"></i>
+                    <input type="text" id="searchInput" class="search-input" placeholder="Cari kue, lapis, snack...">
+                </div>
+                <div class="filter-scroll">
+                    <div class="filter-chip active" onclick="app.filter('all', this)">Semua</div>
+                    <div class="filter-chip" onclick="app.filter('cookies', this)">Cookies</div>
+                    <div class="filter-chip" onclick="app.filter('lapis', this)">Lapis Legit</div>
+                    <div class="filter-chip" onclick="app.filter('lapis_eko', this)">Lapis Ekonomis</div>
+                    <div class="filter-chip" onclick="app.filter('snack', this)">Snack</div>
+                </div>
+            </div>
+            <div class="product-grid" id="catalog-container"></div>
+        </section>
+
+        <section id="p-about" class="page-content">
+            <div class="container">
+                <h3 class="section-title mb-3">Tentang Neni Cookies</h3>
+                <img src="assets/img/Tantang Kami.png" class="about-img shadow-sm" onerror="this.src='https://images.unsplash.com/photo-1556910103-1c02745a30bf?w=600'">
+                
+                <div class="info-card">
+                    <h5 class="fw-bold mb-3"><i class="bi bi-building-check text-success"></i> Profil Usaha</h5>
+                    <p class="history-text">
+                        Neni Cookies adalah salah satu perusahaan UMKM yang dipercayakan oleh pemerintah Kuburaya dan telah beroperasi selama lebih dari 5 tahun. Perusahaan ini diawasi oleh pemerintah untuk memastikan bahwa produk yang dihasilkan sesuai dengan standar kualitas yang ditetapkan.
+                    </p>
+                    <p class="history-text">
+                        Selama bertahun-tahun, Neni Cookies telah menjadi pilihan populer bagi masyarakat lokal karena rasa yang lezat dan kualitas yang terjamin. Produk kami juga telah berhasil dikirim hingga keluar pulau Kalimantan.
+                    </p>
+                </div>
+
+                <div class="info-card">
+                    <h5 class="fw-bold mb-3"><i class="bi bi-award-fill text-success"></i> Keunggulan Kami</h5>
+                    <ul class="advantage-list">
+                        <li><i class="bi bi-check-circle-fill text-success"></i> Bersartifikat Halal MUI (LPPOM-21100013031222).</li>
+                        <li><i class="bi bi-check-circle-fill text-success"></i> Bernomor PIRT.</li>
+                        <li><i class="bi bi-check-circle-fill text-success"></i> Produk selalu fresh (Made by Order/Stock Baru).</li>
+                        <li><i class="bi bi-check-circle-fill text-success"></i> Menggunakan bahan premium (Wijsman).</li>
+                    </ul>
+                </div>
+
+                <h3 class="section-title mb-3 mt-4">FAQ</h3>
+                <div class="accordion" id="accordionQnA">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q1">Apakah telah berlabel halal?</button></h2>
+                        <div id="q1" class="accordion-collapse collapse" data-bs-parent="#accordionQnA"><div class="accordion-body">Ya, produk kami telah terdaftar halal pihak MUI dengan nomor <strong>LPPOM-21100013031222</strong> dan diproses dengan standar halal yang ketat.</div></div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q2">Berapa lama kue bertahan?</button></h2>
+                        <div id="q2" class="accordion-collapse collapse" data-bs-parent="#accordionQnA"><div class="accordion-body">Tanpa bahan pengawet: <br>• Kue kering: 6 bulan.<br>• Kue basah/Lapis: 1.5 bulan (di kulkas).</div></div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q3">Metode pembayarannya?</button></h2>
+                        <div id="q3" class="accordion-collapse collapse" data-bs-parent="#accordionQnA"><div class="accordion-body">Customer dapat membayar DP sebesar 50% dari jumlah orderan. Pelunasan bisa via transfer atau tunai saat di store.</div></div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q4">Pengiriman luar kota?</button></h2>
+                        <div id="q4" class="accordion-collapse collapse" data-bs-parent="#accordionQnA"><div class="accordion-body">Bisa. Produk dapat dikirim keluar Pontianak dengan ekspedisi pengiriman sesuai pilihan customer. Untuk dalam kota, ongkir menyesuaikan jarak.</div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="p-contact" class="page-content">
+            <div class="container">
+                <h3 class="section-title mb-3">Lokasi & Kontak</h3>
+                <div class="map-container shadow-sm">
+                    <iframe src="https://googleusercontent.com/maps.google.com/0" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <div class="contact-row shadow-sm">
+                    <div class="contact-icon"><i class="bi bi-geo-alt-fill"></i></div>
+                    <div><h6 class="fw-bold mb-1">Alamat Produksi</h6><p class="small text-muted m-0">Jl. Sungai Raya Dalam, Komp. Mitra Indah Utama 6, No. C49.</p></div>
+                </div>
+                <div class="contact-row shadow-sm">
+                    <div class="contact-icon"><i class="bi bi-envelope-fill"></i></div>
+                    <div><h6 class="fw-bold mb-1">Email</h6><p class="small text-muted m-0">nenicookiesptk@email.com</p></div>
+                </div>
+                <div class="mt-4"><a href="https://wa.me/+6282148367917" class="btn btn-success w-100 py-3 rounded-4 shadow fw-bold d-flex justify-content-center align-items-center gap-2"><i class="bi bi-whatsapp fs-5"></i> Hubungi +62 821-4836-7917</a></div>
+            </div>
+        </section>
+    </main>
+
+    <nav class="bottom-nav">
+        <button class="nav-btn active" onclick="app.nav('home')" data-target="home"><i class="bi bi-house-door-fill"></i> Beranda</button>
+        <button class="nav-btn" onclick="app.nav('catalog')" data-target="catalog"><i class="bi bi-grid-fill"></i> Katalog</button>
+        <button class="nav-btn" onclick="app.nav('about')" data-target="about"><i class="bi bi-shop-window"></i> Tentang</button>
+        <button class="nav-btn" onclick="app.nav('contact')" data-target="contact"><i class="bi bi-telephone-fill"></i> Kontak</button>
+    </nav>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        // REGISTRASI SERVICE WORKER UNTUK PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('sw.js').then(function(registration) {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+
+        const products = [
+            // VARIANT BARU & LAMA
+            { id: 101, name: "Cookies Matcha", cat: "cookies", price: "85.000", price1000ml: "125.000", price1kg: "160.000", img: "assets/img/Baru4.png", desc: "Perpaduan matcha premium dengan tekstur renyah yang unik." },
+            { id: 102, name: "Tart Nanas Bunga", cat: "cookies", price: "100.000", price1000ml: "150.000", price1kg: "200.000", img: "assets/img/Baru1.png", desc: "Bentuk bunga cantik dengan isian selai nanas melimpah." },
+            { id: 103, name: "Peanut Butter", cat: "cookies", price: "90.000", price1000ml: "135.000", price1kg: "170.000", img: "assets/img/Baru2.png", desc: "Gurihnya selai kacang asli dalam setiap gigitan." },
+            { id: 104, name: "Chococip Cookies", cat: "cookies", price: "85.000", price1000ml: "125.000", price1kg: "160.000", img: "assets/img/Baru3.png", desc: "Cookies klasik dengan butiran chococip yang manis." },
+            { id: 105, name: "Kacang Bawang", cat: "snack", price: "45.000", price1kg: "80.000", img: "assets/img/Baru5.png", desc: "Camilan gurih teman santai keluarga." },
+            
+            // COOKIES CLASSIC
+            { id: 1, name: "Choco Nut", cat: "cookies", price: "85.000", price1000ml: "125.000", price1kg: "160.000", img: "assets/img/Picture35.png", desc: "Rasa coklat kacang yang khas dan nikmat." },
+            { id: 2, name: "Pitmopen", cat: "cookies", price: "80.000", price1000ml: "120.000", price1kg: "150.000", img: "assets/img/Picture34.png", desc: "Kue klasik dengan aroma yang menggugah selera." },
+            { id: 3, name: "Choco Crunch", cat: "cookies", price: "75.000", price1000ml: "110.000", price1kg: "140.000", img: "assets/img/Picture1.png", desc: "Coklat crunchy yang lumer di mulut." },
+            { id: 4, name: "Palm Sugar", cat: "cookies", price: "75.000", price1000ml: "110.000", price1kg: "140.000", img: "assets/img/Picture2.png", desc: "Manis alami dari gula aren asli." },
+            { id: 5, name: "Janit Cookies", cat: "cookies", price: "75.000", price1000ml: "110.000", price1kg: "140.000", img: "assets/img/Picture3.png", desc: "Kue kering dengan taburan gula yang pas." },
+            { id: 6, name: "Kastard", cat: "cookies", price: "80.000", price1000ml: "120.000", price1kg: "150.000", img: "assets/img/Picture4.png", desc: "Lembut dan manis, favorit semua umur." },
+            { id: 7, name: "Choco Chip", cat: "cookies", price: "75.000", price1000ml: "110.000", price1kg: "140.000", img: "assets/img/Picture5.png", desc: "Taburan choco chip yang melimpah." },
+            { id: 8, name: "Kue Kacang/Skipi", cat: "cookies", price: "75.000", price1000ml: "110.000", price1kg: "140.000", img: "assets/img/Picture6.png", desc: "Tekstur halus dengan rasa kacang yang kuat." },
+            { id: 9, name: "Putri Salju", cat: "cookies", price: "75.000", price1000ml: "110.000", price1kg: "140.000", img: "assets/img/Picture7.png", desc: "Dibalut gula halus dingin yang menyegarkan." },
+            { id: 10, name: "Snow Ball Cheese", cat: "cookies", price: "80.000", price1000ml: "120.000", price1kg: "150.000", img: "assets/img/Picture8.png", desc: "Bola keju salju yang gurih." },
+            { id: 11, name: "Regal Bawang", cat: "cookies", price: "80.000", price1000ml: "120.000", price1kg: "150.000", img: "assets/img/Picture9.png", desc: "Kombinasi unik regal dan bawang." },
+            { id: 12, name: "Kastengel", cat: "cookies", price: "75.000", price1000ml: "110.000", price1kg: "140.000", img: "assets/img/Picture10.png", desc: "Keju edam asli yang sangat terasa." },
+            { id: 13, name: "Nastar", cat: "cookies", price: "100.000", price1000ml: "150.000", price1kg: "200.000", img: "assets/img/Picture11.png", desc: "Selai nanas homemade yang legit." },
+            { id: 14, name: "Mente Cookies", cat: "cookies", price: "100.000", price1000ml: "150.000", price1kg: "200.000", img: "assets/img/Picture12.png", desc: "Kacang mede pilihan di setiap gigitan." },
+            { id: 15, name: "Cornflakes", cat: "cookies", price: "80.000", price1000ml: "120.000", price1kg: "150.000", img: "assets/img/Picture13.png", desc: "Renyahnya cornflakes dalam kue kering." },
+            { id: 16, name: "Semprit", cat: "cookies", price: "60.000", price1000ml: "90.000", price1kg: "110.000", img: "assets/img/Picture14.png", desc: "Kue tradisional yang tak lekang waktu." },
+            { id: 17, name: "Kanji Pandan", cat: "cookies", price: "75.000", price1000ml: "110.000", price1kg: "140.000", img: "assets/img/Picture15.png", desc: "Harum pandan asli yang menenangkan." },
+            { id: 18, name: "Kanji Susu", cat: "cookies", price: "75.000", price1000ml: "110.000", price1kg: "140.000", img: "assets/img/Picture16.png", desc: "Rasa susu yang creamy dan lembut." },
+            
+            // SNACK
+            { id: 19, name: "Stik Ketan", cat: "snack", price: "50.000", price1kg: "100.000", img: "assets/img/Picture17.png", desc: "Renyah dan gurih, cocok untuk camilan." },
+            { id: 20, name: "Stik Bawang", cat: "snack", price: "55.000", price1kg: "100.000", img: "assets/img/Picture19.png", desc: "Aroma bawang yang sedap dan gurih." },
+            { id: 21, name: "Stik Keju", cat: "snack", price: "65.000", price1kg: "120.000", img: "assets/img/Picture19.1.png", desc: "Stik dengan rasa keju yang nendang." },
+
+            // LAPIS EKONOMIS (NEW CATEGORY)
+            { id: 201, name: "Lapis Belacan Ekonomis", cat: "lapis_eko", price: "150.000", size: "18x18cm", img: "assets/img/Picture25.png", desc: "Varian ekonomis lapis belacan." },
+            { id: 202, name: "Lapis Pandan Ekonomis", cat: "lapis_eko", price: "150.000", size: "18x18cm", img: "assets/img/Picture20.png", desc: "Varian ekonomis lapis pandan." },
+            { id: 203, name: "Lapis Legit Ekonomis", cat: "lapis_eko", price: "150.000", size: "18x18cm", img: "assets/img/Picture22.png", desc: "Varian ekonomis lapis legit original." },
+            { id: 204, name: "Lapis Susu Ekonomis", cat: "lapis_eko", price: "150.000", size: "18x18cm", img: "assets/img/Picture31.png", desc: "Varian ekonomis lapis rasa susu." },
+
+            // LAPIS LEGIT (PREMIUM)
+            { id: 30, name: "Lapis Nutella", cat: "lapis", price: "350.000", size: "20x20cm", img: "assets/img/Picture32.png", desc: "Lapis legit dengan layer nutella premium." },
+            { id: 31, name: "Lapis Sanca", cat: "lapis", price: "300.000", size: "20x20cm", img: "assets/img/Picture33.png", desc: "Motif cantik dengan rasa autentik." },
+            { id: 32, name: "Lapis Pandan", cat: "lapis", price: "280.000", size: "20x20cm", img: "assets/img/Picture20.png", desc: "Wangi pandan asli dalam setiap lapis." },
+            { id: 33, name: "Lapis Surabaya", cat: "lapis", price: "280.000", size: "20x20cm", img: "assets/img/Picture21.png", desc: "Tiga lapis kelembutan khas Surabaya." },
+            { id: 34, name: "Lapis Coklat", cat: "lapis", price: "280.000", size: "20x20cm", img: "assets/img/Picture22.png", desc: "Coklat berkualitas di setiap lapisan." },
+            { id: 35, name: "Lapis Red Velvet", cat: "lapis", price: "350.000", size: "20x20cm", img: "assets/img/Picture23.png", desc: "Merah merona dengan rasa red velvet." },
+            { id: 36, name: "Lapis Plum", cat: "lapis", price: "350.000", size: "20x20cm", img: "assets/img/Picture24.png", desc: "Segarnya buah plum dalam lapis legit." },
+            { id: 37, name: "Lapis Belacan", cat: "lapis", price: "210.000", size: "20x20cm", img: "assets/img/Picture25.png", desc: "Cita rasa unik khas Pontianak." },
+            { id: 38, name: "Bolu Surabaya", cat: "lapis", price: "80.000", size: "20x20cm", img: "assets/img/Picture26.png", desc: "Bolu lembut harga bersahabat." },
+            { id: 39, name: "Lapis Milo", cat: "lapis", price: "280.000", size: "20x20cm", img: "assets/img/Picture27.png", desc: "Favorit anak-anak, rasa milo asli." },
+            { id: 40, name: "Lapis Keju", cat: "lapis", price: "280.000", size: "20x20cm", img: "assets/img/Picture28.png", desc: "Parutan keju melimpah di dalamnya." },
+            { id: 41, name: "Lapis Blueband", cat: "lapis", price: "210.000", size: "20x20cm", img: "assets/img/Picture29.png", desc: "Lapis ekonomis dengan rasa tetap enak." },
+            { id: 42, name: "Lapis Lumut", cat: "lapis", price: "250.000", size: "20x20cm", img: "assets/img/Picture30.png", desc: "Warna hijau alami yang menggoda." },
+            { id: 43, name: "Lapis Butter", cat: "lapis", price: "250.000", size: "20x20cm", img: "assets/img/Picture31.png", desc: "Full butter wangi semerbak." },
+        ];
+
+        const app = {
+            activeCat: 'all',
+
+            init: function() {
+                AOS.init();
+                var myCarousel = document.querySelector('#heroCarousel')
+                var carousel = new bootstrap.Carousel(myCarousel, {
+                    interval: 5000,
+                    ride: 'carousel'
+                })
+
+                this.renderFeatured();
+                this.renderCatalog(products);
+                document.getElementById('searchInput').addEventListener('keyup', (e) => this.search(e.target.value));
+
+                // Fix: Close modal on outside click logic
+                document.getElementById('promoModal').addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        app.closeModal();
+                    }
+                });
+
+                setTimeout(() => {
+                    document.getElementById('promoModal').style.display = 'flex';
+                }, 1500);
+            },
+
+            closeModal: function() {
+                document.getElementById('promoModal').style.display = 'none';
+            },
+
+            nav: function(pageId) {
+                window.scrollTo(0,0);
+                document.querySelectorAll('.page-content').forEach(el => el.classList.remove('active'));
+                document.getElementById(`p-${pageId}`).classList.add('active');
+                document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+                const btn = document.querySelector(`.nav-btn[data-target="${pageId}"]`);
+                if(btn) btn.classList.add('active');
+            },
+
+            renderFeatured: function() {
+                const container = document.getElementById('home-bestseller-container');
+                const featuredIds = [13, 102, 33, 101, 21]; 
+                const featuredData = products.filter(p => featuredIds.includes(p.id));
+                
+                let html = '';
+                featuredData.forEach(p => {
+                    html += `
+                    <div class="bestseller-item" onclick="app.nav('catalog')">
+                        <img src="${p.img}" class="bs-img" onerror="this.src='https://via.placeholder.com/80?text=Kue'">
+                        <div class="flex-grow-1">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <h6 class="mb-0 fw-bold text-dark">${p.name}</h6>
+                            </div>
+                            <div class="bs-stars">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+                            <p class="bs-desc m-0">${p.desc}</p>
+                        </div>
+                    </div>`;
+                });
+                container.innerHTML = html;
+            },
+
+            renderCatalog: function(data) {
+                const container = document.getElementById('catalog-container');
+                if(data.length === 0) {
+                    container.innerHTML = `<div class="col-12 text-center py-5 text-muted">Produk tidak ditemukan</div>`;
+                    return;
+                }
+                let html = '';
+                data.forEach(p => {
+                    let priceDisplay = '';
+                    
+                    if(p.price1kg) {
+                        let row1000ml = p.price1000ml ? `<div class="price-row border-top border-bottom py-1 my-1"><span class="price-label" style="text-align:left; line-height:1.2;">Toples <br> 1000ml</span> <span class="price-val">Rp ${p.price1000ml}</span></div>` : '';
+                        
+                        priceDisplay = `
+                            <div class="price-container">
+                                <div class="price-row"><span class="price-label">500gr</span> <span class="price-val">Rp ${p.price}</span></div>
+                                ${row1000ml}
+                                <div class="price-row"><span class="price-label">1000gr</span> <span class="price-val">Rp ${p.price1kg}</span></div>
+                            </div>
+                        `;
+                    } else {
+                        priceDisplay = `
+                            <div class="price-container text-center">
+                                <span class="price-label mb-1 d-block">${p.size || 'Per Pack'}</span>
+                                <span class="price-single">Rp ${p.price}</span>
+                                <span class="price-label text-danger" style="font-size:0.6rem">Tidak bisa 1/2</span>
+                            </div>
+                        `;
+                    }
+
+                    html += `
+                    <div class="prod-card" data-aos="fade-up" data-aos-duration="600">
+                        <div class="prod-img-box">
+                            <img src="${p.img}" class="prod-img" onerror="this.src='https://via.placeholder.com/200?text=Neni+Cookies'">
+                        </div>
+                        <div class="prod-info">
+                            <span class="prod-cat">${p.cat === 'lapis_eko' ? 'Lapis Ekonomis' : p.cat}</span>
+                            <h6 class="prod-title">${p.name}</h6>
+                            ${priceDisplay}
+                            <a href="https://wa.me/+6282148367917?text=Halo Neni Cookies, saya mau pesan ${p.name}" class="btn-buy">Beli</a>
+                        </div>
+                    </div>`;
+                });
+                container.innerHTML = html;
+            },
+
+            filter: function(cat, el) {
+                this.activeCat = cat;
+                if(el) {
+                    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+                    el.classList.add('active');
+                }
+                this.runQuery();
+            },
+
+            search: function(term) {
+                this.runQuery(term.toLowerCase());
+            },
+
+            runQuery: function(term = document.getElementById('searchInput').value.toLowerCase()) {
+                const filtered = products.filter(p => {
+                    const matchCat = this.activeCat === 'all' || p.cat === this.activeCat;
+                    const matchName = p.name.toLowerCase().includes(term);
+                    return matchCat && matchName;
+                });
+                this.renderCatalog(filtered);
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => app.init());
+    </script>
+</body>
+</html>
