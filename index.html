@@ -333,8 +333,21 @@
         // REGISTRASI SERVICE WORKER UNTUK PWA
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
-                navigator.serviceWorker.register('sw.js').then(function(registration) {
+                // Trik: Tambahkan ?v=5 agar browser mendeteksi ada SW baru
+                navigator.serviceWorker.register('sw.js?v=5').then(function(registration) {
                     console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                    
+                    // Tambahan: Cek update manual
+                    registration.onupdatefound = function() {
+                        const installingWorker = registration.installing;
+                        installingWorker.onstatechange = function() {
+                            if (installingWorker.state === 'installed') {
+                                if (navigator.serviceWorker.controller) {
+                                    console.log('Konten baru tersedia, silakan refresh.');
+                                }
+                            }
+                        };
+                    };
                 }, function(err) {
                     console.log('ServiceWorker registration failed: ', err);
                 });
