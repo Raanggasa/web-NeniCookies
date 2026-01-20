@@ -1,8 +1,10 @@
-const CACHE_NAME = 'neni-cookies-v2'; // Versi dinaikkan agar cache lama terhapus
+// UPDATE: Versi dinaikkan ke v3 agar browser memuat ulang data produk & nama gambar baru
+const CACHE_NAME = 'neni-cookies-v3'; 
+
 const urlsToCache = [
   './',
   './index.html',
-  './assets/img/Logo no bg.png',
+  './assets/img/Logo no bg.png', // Pastikan logo utama ini namanya tidak berubah
   'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css',
   'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css',
   'https://unpkg.com/aos@2.3.1/dist/aos.css',
@@ -28,8 +30,8 @@ self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
 
   // LOGIKA KHUSUS GAMBAR: Network First
-  // (Cari di internet dulu -> Simpan ke Cache -> Tampilkan)
-  // Cocok agar katalog produk selalu update real-time
+  // Karena nama file gambar baru saja berubah, strategi ini sangat penting.
+  // Browser akan mencoba download gambar "Lapis Belacan.png" dari internet dulu.
   if (url.pathname.match(/\.(png|jpg|jpeg|svg|gif|webp)$/i)) {
     event.respondWith(
       fetch(event.request)
@@ -42,15 +44,14 @@ self.addEventListener('fetch', event => {
           return networkResponse;
         })
         .catch(() => {
-          // Jika offline atau internet mati, ambil dari cache lama
+          // Jika offline, baru cari di cache
           return caches.match(event.request);
         })
     );
   } 
   
   // LOGIKA FILE LAIN (CSS, JS, Font): Cache First
-  // (Cari di cache dulu -> Jika tidak ada baru internet)
-  // Agar web tetap cepat loadingnya
+  // HTML dan JS utama akan diperbarui karena CACHE_NAME berubah
   else {
     event.respondWith(
       caches.match(event.request).then(response => {
@@ -67,7 +68,7 @@ self.addEventListener('activate', event => {
     caches.keys().then(cacheNames => {
       return Promise.all(
         cacheNames.map(cacheName => {
-          // Hapus cache yang namanya BUKAN 'neni-cookies-v2'
+          // Hapus cache versi lama (misal v2) agar tidak bentrok dengan v3
           if (cacheWhitelist.indexOf(cacheName) === -1) {
             console.log('Menghapus cache lama:', cacheName);
             return caches.delete(cacheName);
