@@ -1,5 +1,5 @@
 // UPDATE: Versi dinaikkan ke v3 agar browser memuat ulang data produk & nama gambar baru
-const CACHE_NAME = 'neni-cookies-v3'; 
+const CACHE_NAME = 'neni-cookies-v4'; 
 
 const urlsToCache = [
   './',
