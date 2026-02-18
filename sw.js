@@ -1,5 +1,5 @@
 // UPDATE: Versi saya naikkan ke v4
-const CACHE_NAME = 'neni-cookies-v5';
+const CACHE_NAME = 'neni-cookies-v6';
 
 const urlsToCache = [
   './',
